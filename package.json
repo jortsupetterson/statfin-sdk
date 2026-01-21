@@ -1,0 +1,56 @@
+{
+  "name": "statfin-sdk",
+  "version": "1.0.0",
+  "description": "Minimal StatFin (Tilastokeskus) SDK for PxWeb json-stat2 queries.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "c8 --100 --include src --exclude tests --reporter=text --reporter=lcov playwright test",
+    "build": "tsc -p tsconfig.json",
+    "prepublishOnly": "npm test"
+  },
+  "keywords": [
+    "statfin",
+    "tilastokeskus",
+    "pxweb",
+    "json-stat2",
+    "statistics-finland",
+    "open-data",
+    "sdk"
+  ],
+  "author": "jortsupetterson",
+  "license": "MIT",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jortsupetterson/statfin-sdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jortsupetterson/statfin-sdk/issues"
+  },
+  "homepage": "https://github.com/jortsupetterson/statfin-sdk#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "@types/node": "^25.0.9",
+    "c8": "^10.1.2",
+    "playwright": "^1.57.0",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md",
+    "CHANNELLOG.md"
+  ],
+  "sideEffects": false
+}
