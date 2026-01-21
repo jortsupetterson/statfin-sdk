@@ -59,6 +59,14 @@ const rows = await queryStatFin(url, jsonQueryStringFromUi);
 Use the StatFin PxWeb UI and copy the URL + JSON query from
 "Make this table available in your application".
 
+### INSTRUCTION URLS:
+
 - FI: https://stat.fi/media/uploads/org/avoindata/pxweb_api-ohje.pdf
 - SV: https://stat.fi/media/uploads/org_sv/avoindata/px-web_api-anvisning.pdf
 - EN: https://stat.fi/media/uploads/org_en/avoindata/px-web_api-help.pdf
+
+### UI URLS:
+
+- FI: https://pxdata.stat.fi/PxWeb/pxweb/fi/StatFin/
+- SV: https://pxdata.stat.fi/PxWeb/pxweb/sv/StatFin/
+- EN: https://pxdata.stat.fi/PxWeb/pxweb/en/StatFin/
