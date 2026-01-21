@@ -45,6 +45,30 @@ test.describe("postJson", () => {
     );
   });
 
+  test("falls back when cache open fails", async () => {
+    let openCalled = false;
+    globalThis.caches = {
+      open: async () => {
+        openCalled = true;
+        throw new Error("cache open failed");
+      },
+    } as CacheStorage;
+
+    let fetchCalled = false;
+    globalThis.fetch = (async () => {
+      fetchCalled = true;
+      return new Response(JSON.stringify({ status: "ok" }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
+    }) as typeof fetch;
+
+    const result = await postJson("https://example.test?cached=true", { ok: true });
+    expect(result).toEqual({ status: "ok" });
+    expect(openCalled).toBe(true);
+    expect(fetchCalled).toBe(true);
+  });
+
   test("returns cached response when available", async () => {
     const cachedResponse = new Response(JSON.stringify({ status: "cached" }), {
       status: 200,
@@ -110,5 +134,30 @@ test.describe("postJson", () => {
     expect(typeof putKey).toBe("string");
     expect(putKey as string).toContain("__statfin_cache=");
     expect(putResponse?.status).toBe(200);
+  });
+
+  test("ignores cache put failures", async () => {
+    let putCalled = false;
+    globalThis.caches = {
+      open: async () => {
+        return {
+          match: async () => undefined,
+          put: async () => {
+            putCalled = true;
+            throw new Error("cache put failed");
+          },
+        } as Cache;
+      },
+    } as CacheStorage;
+
+    globalThis.fetch = (async () =>
+      new Response(JSON.stringify({ status: "ok" }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      })) as typeof fetch;
+
+    const result = await postJson("https://example.test", { ok: true });
+    expect(result).toEqual({ status: "ok" });
+    expect(putCalled).toBe(true);
   });
 });
