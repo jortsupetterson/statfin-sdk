@@ -1,7 +1,7 @@
 {
   "name": "statfin-sdk",
-  "version": "1.0.0",
-  "description": "Minimal StatFin (Tilastokeskus) SDK for PxWeb json-stat2 queries.",
+  "version": "1.1.0",
+  "description": "Minimal StatFin (Tilastokeskus) SDK for PxWeb json-stat2 queries with Cache API support.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {

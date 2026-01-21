@@ -1,57 +1,49 @@
 import { buildJsonQuery, queryStatFin } from "./dist/index.js";
 
-const dynamicVar = ["2024Q1", "2024Q2", "2024Q3", "2024Q4"];
-
 const main = async () => {
   const result = await queryStatFin(
-    "https://statfin.stat.fi/PxWeb/api/v1/fi/StatFin_Passiivi/aly/statfinpas_aly_pxt_11zm.px",
-    buildJsonQuery([
-      {
-        code: "Vuosineljännes",
-        selection: {
-          filter: "item",
-          values: dynamicVar,
+    "https://pxdata.stat.fi/PxWeb/api/v1/fi/StatFin/klv/statfin_klv_pxt_14kr.px",
+    JSON.stringify({
+      query: [
+        {
+          code: "Kuukausi",
+          selection: {
+            filter: "item",
+            values: [
+              "2024M01",
+              "2024M02",
+              "2024M03",
+              "2024M04",
+              "2024M05",
+              "2024M06",
+              "2024M07",
+              "2024M08",
+              "2024M09",
+              "2024M10",
+              "2024M11",
+              "2024M12",
+            ],
+          },
         },
-      },
-      {
-        code: "Oikeudellinen muoto",
-        selection: {
-          filter: "item",
-          values: [
-            "SSS",
-            "11",
-            "12",
-            "13",
-            "14",
-            "15",
-            "21",
-            "22",
-            "31",
-            "33",
-            "35",
-            "41",
-            "53",
-            "54",
-            "62",
-            "90",
-          ],
+        {
+          code: "Toimiala",
+          selection: {
+            filter: "item",
+            values: ["G47"],
+          },
         },
-      },
-      {
-        code: "Toimiala",
-        selection: {
-          filter: "item",
-          values: ["F"],
+        {
+          code: "Muuttuja",
+          selection: {
+            filter: "item",
+            values: ["lv"],
+          },
         },
+      ],
+      response: {
+        format: "json-stat2",
       },
-      {
-        code: "Tiedot",
-        selection: {
-          filter: "item",
-          values: ["aloittaneita", "lopettaneita"],
-        },
-      },
-    ]),
+    }),
   );
   console.log(result);
 };

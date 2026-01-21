@@ -54,6 +54,21 @@ If you copied the JSON query from the PxWeb UI, pass it directly:
 const rows = await queryStatFin(url, jsonQueryStringFromUi);
 ```
 
+## Caching (Cache API)
+
+When the Cache API is available (browsers, service workers), `queryStatFin`
+caches successful responses in a cache named `statfin-sdk`. The cache key is
+derived from the request URL and JSON body so repeated queries return the cached
+data.
+
+To clear the cache:
+
+```ts
+await caches.delete("statfin-sdk");
+```
+
+Node.js does not expose the Cache API, so caching is skipped in Node runtimes.
+
 ## How to get the URL and JSON query
 
 Use the StatFin PxWeb UI and copy the URL + JSON query from
